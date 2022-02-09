@@ -1,0 +1,39 @@
+分层测试
+ODS层大部分都是表字段的测试。
+
+DWD和ODS今天测试完。
+
+我测试DWD层。
+
+ADS指标测试sql就是之前在confluence中看的。
+
+把报表转化成指标
+
+
+票表  orderid    卡   orderid
+订单表  orderid
+订单流水表   orderid    OrderLineID
+订单明细表              OrderLineID
+
+
+
+select sequence,count(1) num
+from [SHDCVSCWDS1018F\GALAXYQ01].[GatewayQA].dbo.rmcapacity
+where LastUpdate>='2021-12-23' and LastUpdate<'2021-12-24'
+group by sequence
+for json path,root('sequence')
+
+
+select sequence,count(1) num
+from dbo.rmcapacity
+where LastUpdate>='2021-12-23' and LastUpdate<'2021-12-24'
+group by sequence
+for xml path(''),root('sequence')
+
+select sequence,count(1) num
+from rmcapacity
+where LastUpdate>='2021-12-23' and LastUpdate<'2021-12-24'
+group by sequence
+FOR XML RAW
+
+select @@version
